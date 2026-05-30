@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "brcypt": "^1.0.1",
+    "cookie-parser": "^1.4.7",
+    "imagekit": "^6.0.0",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.1.1"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.10",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/multer": "^2.1.0"
+  }
+}
