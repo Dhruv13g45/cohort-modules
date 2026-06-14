@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #f4f7fb;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Container */
+.user-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  padding: 40px;
+}
+
+/* Card */
+.user-card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.user-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Image */
+.user-card img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 4px solid #4f46e5;
+}
+
+/* Name */
+.user-card h1 {
+  font-size: 1.4rem;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+/* Email */
+.user-card h3 {
+  font-size: 0.95rem;
+  color: #666;
+  word-break: break-word;
+}
+
+.user-card p {
+  margin-top: 8px;
+  color: #777;
+  font-size: 0.9rem;
+}
