@@ -1,6 +1,6 @@
 [submodule "NEXTJS-demo-app"]
 	path = NEXTJS-demo-app
-	url = https://github.com/Dhruv13g45/cohort-modules.git
+	url = https://github.com/Dhruv13g45/NEXTJS-demo-app.git
 [submodule "Kafka-tutorial"]
 	path = Kafka-tutorial
-	url = https://github.com/Dhruv13g45/cohort-modules.git
+	url = https://github.com/Dhruv13g45/Kafka-tutorial.git
