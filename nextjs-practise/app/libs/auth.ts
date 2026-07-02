@@ -1,25 +1,22 @@
-import jwt from "jsonwebtoken"
+import jwt, { JwtPayload } from "jsonwebtoken"
 
-type userData = {
+export interface userPayload extends JwtPayload {
     id: string,
     email: string,
 }
 
-export const generateToken = (userPayload: userData) =>{
+export const generateToken = (payload: userPayload) => {
+  return jwt.sign(payload, process.env.JWT_SECRET!, {
+    expiresIn: "7h",
+  });
+};
 
-    return jwt.sign(userPayload, process.env.JWT_SECRET!,{
-        expiresIn: "7h"
-    } )
-}
+export const verifyToken = (token: string): userPayload => {
+  const payload = jwt.verify(token, process.env.JWT_SECRET!);
 
+  if (typeof payload === "string") {
+    throw new Error("Invalid JWT payload");
+  }
 
-export const verifyToken = (token: string) =>{
-
-    const payload = jwt.verify(token, process.env.JWT_SECRET!)
-
-    if(!payload){
-        throw new Error("Error while retriving the payload to verify")
-    }
-
-    return payload
-}
+  return payload as userPayload;
+};

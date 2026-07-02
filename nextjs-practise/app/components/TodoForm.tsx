@@ -1,6 +1,8 @@
 "use client"
 
 import React, { useState } from "react";
+import { createTodo } from "../actions/todo-actions";
+import { redirect } from "next/navigation";
 // import { addTodo } from "../actions/todo-actions";
 
 const TodoForm = () => {
@@ -9,15 +11,19 @@ const TodoForm = () => {
     const initialFormData = {
         title: "",
         description: "",
-        priority: "Normal"
+        priority: "Normal",
+        dueDate: "",
+        completed: false
     }
 
     const [formData, setFormData] = useState(initialFormData);
 
-    const handleFormSubmit = (formDataObj: FormData) =>{
-      // addTodo(formDataObj)
-
+    const handleFormSubmit = async (formDataObj: FormData) =>{
+      const result = await createTodo(formDataObj)
+      console.log(result)
       setFormData(initialFormData)
+      alert("Todo created successfully!")
+      redirect("/all-todos")
     }
 
 
@@ -54,10 +60,33 @@ const TodoForm = () => {
               name="priority"
               onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value})}
             >
-              <option>Normal</option>
-              <option>High</option>
-              <option>Low</option>
+              <option>medium</option>
+              <option>high</option>
+              <option>low</option>
             </select>
+          </label>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-[1.5fr_0.8fr]">
+          <label className="flex flex-col gap-2 text-sm text-slate-300">
+            Due date
+            <input
+              type="date"
+              name="dueDate"
+              className="rounded-2xl border border-slate-700 bg-slate-950/90 px-4 py-3 text-slate-100 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20"
+              value={formData.dueDate}
+              onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
+            />
+          </label>
+          <label className="flex items-center gap-3 text-sm text-slate-300">
+            <input
+              type="checkbox"
+              name="completed"
+              checked={formData.completed}
+              onChange={(e) => setFormData({ ...formData, completed: e.target.checked })}
+              className="h-5 w-5 rounded border-slate-700 bg-slate-950 text-indigo-500 focus:ring-indigo-500"
+            />
+            Completed
           </label>
         </div>
 

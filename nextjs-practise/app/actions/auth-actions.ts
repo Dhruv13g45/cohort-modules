@@ -49,7 +49,7 @@ export const signUpUser = async(formData: FormData) =>{
     const [newUser] = await db.insert(usersTable).values({
         username: userData["name"].toString(),
         email: userData["email"].toString(),
-        password: userData['password'].toString()
+        password: hashedPassword
     }).returning()
 
     if(!newUser){
@@ -80,7 +80,7 @@ export const loginUser = async(formData: FormData) => {
         throw new Error("User does not exists first signup !!")
     }
 
-    const confirmPassword = bcrypt.compareSync(userPayload["email"].toString(), existingUser?.password) ? true : false
+    const confirmPassword = bcrypt.compareSync(userPayload["password"].toString(), existingUser?.password) ? true : false
 
     if(confirmPassword === false){
         throw new Error("Password is wrong !!")

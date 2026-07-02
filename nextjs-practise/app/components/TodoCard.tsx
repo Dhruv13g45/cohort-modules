@@ -1,20 +1,19 @@
+import { redirect } from "next/navigation";
 import React from "react";
 
-interface TodoCardProps {
-  title?: string;
-  description?: string;
-  dueDate?: string;
-  priority?: "Low" | "Normal" | "High";
-  completed?: boolean;
-}
+type Todo = {
+  id: number,
+  title: string;
+  description: string;
+  priority: "Low" | "Normal" | "High";
+  dueDate: string;
+  completed: boolean;
+};
 
-const TodoCard = ({
-  title = "Review design assets",
-  description = "Finalize the UI details and push the latest updates to the todo workflow.",
-  dueDate = "Today",
-  priority = "Normal",
-  completed = false,
-}: TodoCardProps) => {
+const TodoCard = ({ todo }: { todo: Todo }) => {
+
+  const { id, title, description, priority, dueDate, completed } = todo;
+
   const priorityStyles = {
     Low: "bg-emerald-500/10 text-emerald-300 border-emerald-500/20",
     Normal: "bg-slate-700/80 text-slate-100 border-slate-600/80",
@@ -29,7 +28,9 @@ const TodoCard = ({
             <span className="inline-flex items-center rounded-full border border-slate-700/80 bg-slate-950/70 px-3 py-1 font-medium text-slate-300">
               {completed ? "Completed" : "Pending"}
             </span>
-            <span className={`inline-flex items-center rounded-full border px-3 py-1 text-sm font-medium ${priorityStyles[priority]}`}>
+            <span
+              className={`inline-flex items-center rounded-full border px-3 py-1 text-sm font-medium ${priorityStyles[priority]}`}
+            >
               {priority}
             </span>
           </div>
@@ -38,15 +39,19 @@ const TodoCard = ({
         </div>
         <div className="text-right text-sm text-slate-400">
           <p className="text-slate-200 font-semibold">Due</p>
-          <p className="mt-1 text-lg">{dueDate}</p>
+          <p className="mt-1 text-lg">{new Date(dueDate).toLocaleDateString()}</p>
         </div>
       </div>
 
       <div className="mt-6 flex flex-wrap items-center gap-3">
-        <button className="rounded-2xl border border-slate-700 bg-slate-800/90 px-4 py-2 text-sm font-semibold text-slate-100 transition hover:border-slate-600 hover:bg-slate-700">
+        <button className="rounded-2xl border border-slate-700 bg-slate-800/90 px-4 py-2 text-sm font-semibold text-slate-100 transition hover:border-slate-600 hover:bg-slate-700" onClick={()=>{
+          redirect(`${todo.id}/edit`)
+        }}>
           Edit
         </button>
-        <button className="rounded-2xl border border-slate-700 bg-slate-800/90 px-4 py-2 text-sm font-semibold text-slate-100 transition hover:border-slate-600 hover:bg-slate-700">
+        <button className="rounded-2xl border border-slate-700 bg-slate-800/90 px-4 py-2 text-sm font-semibold text-slate-100 transition hover:border-slate-600 hover:bg-slate-700" onClick={()=>{
+          redirect(`${todo.id}/delete`)
+        }}>
           Delete
         </button>
         <span className="ml-auto rounded-2xl bg-slate-950/90 px-4 py-2 text-sm text-slate-300">

@@ -1,8 +1,37 @@
-import React from "react";
+"use client"
+import React, { useEffect, useState } from "react";
 import TodoCard from "../../components/TodoCard";
 import Link from "next/link";
+import { getSingleTodo } from "@/app/actions/todo-actions";
+import { useParams } from "next/navigation";
 
-const ViewSingleTodo = () => {
+const ViewSingleTodo =  () => {
+
+  const [todo, setTodo] = useState<any>({});
+
+  const params = useParams()
+
+  const todoId = String(params?.id)
+
+  useEffect(() => {
+    const fetchSingleTodo = async () => {
+      const response = await getSingleTodo(todoId)
+
+      const todoData = response?.todo
+
+      console.log("Single todo data:", todoData);
+
+      if(todoData.length === 0){
+        setTodo({})
+      }
+
+      setTodo(todoData[0])
+    }
+
+    fetchSingleTodo()
+  }, [todoId])
+
+
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100 px-6 py-12">
       <div className="mx-auto w-full max-w-3xl space-y-6">
@@ -22,7 +51,7 @@ const ViewSingleTodo = () => {
             </Link>
           </div>
 
-          <TodoCard />
+          {todo && <TodoCard todo={todo} />}
         </div>
       </div>
     </main>

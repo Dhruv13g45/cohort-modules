@@ -19,7 +19,7 @@ const SignUpForm = () => {
     const result = await signUpUser(formData)
     console.log(result)
     setFormData(initialFormData)
-    redirect("/all-todos")
+    redirect("/auth/login")
   }
 
 

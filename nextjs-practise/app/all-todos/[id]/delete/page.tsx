@@ -1,8 +1,25 @@
+"use client"
 import React from "react";
-import TodoCard from "../../../components/TodoCard";
 import Link from "next/link";
+import { redirect, useParams } from "next/navigation";
+import { deleteTodo } from "@/app/actions/todo-actions";
 
 const DeleteTodoConfirmationPage = () => {
+
+  const params = useParams()
+
+  const handleDelete = async() => {
+
+
+    const todoId = String(params?.id)
+
+    const response = await deleteTodo(todoId)
+
+    console.log("Delete response:", response.message);
+
+    redirect("/all-todos")
+
+  }
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100 px-6 py-12">
       <div className="mx-auto w-full max-w-3xl">
@@ -15,14 +32,12 @@ const DeleteTodoConfirmationPage = () => {
             <p className="mt-2 text-sm text-slate-400">This action cannot be undone. Confirm below to permanently remove this todo.</p>
           </div>
 
-          <div className="mb-6">
-            <TodoCard />
-          </div>
 
           <div className="flex items-center gap-3">
             <button
               type="button"
               className="rounded-2xl bg-rose-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-rose-500"
+              onClick={handleDelete}
             >
               Delete permanently
             </button>
