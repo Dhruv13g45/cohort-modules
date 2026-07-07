@@ -1,0 +1,10 @@
+{
+  "$schema": "https://assets.requestly.com/local/v1.12.0/metadata.json",
+  "type": "api",
+  "entryType": "http",
+  "id": "3d316076-bf29-433b-8c60-3d90f31e78d6",
+  "rank": "",
+  "url": "http://localhost:8000/addTodo",
+  "method": "POST",
+  "contentType": "none"
+}
